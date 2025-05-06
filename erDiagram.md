@@ -1,5 +1,5 @@
 ### ER図
-[![Image from Gyazo](https://i.gyazo.com/3def09407908e5728a7bc110d2a9c014.png)](https://gyazo.com/3def09407908e5728a7bc110d2a9c014)
+[![Image from Gyazo](https://i.gyazo.com/3826cb7723426b3a139294ec765c3f4f.png)](https://gyazo.com/3826cb7723426b3a139294ec765c3f4f)
 
 ### 本サービスの概要（700文字以内）
 『薬管理を手助けするアプリ』<br>
@@ -26,6 +26,8 @@
 | ------------------ | -------- | -------------- |
 | id                 | int      | 主キー            |
 | name               | string   | 表示名            |
+| age                | int      | 年齢              |
+| gender             | string   | 性別              |
 | line\_uid          | string   | LINE連携用UID（任意） |
 | email              | string   | メールアドレス（任意）    |
 | password\_digest   | string   | パスワード（メール登録時）  |
