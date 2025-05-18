@@ -1,0 +1,48 @@
+# Rubyのバージョン
+FROM ruby:3.3.6
+
+# ARG:Dockerfile内で使える変数
+ARG UID=1000
+
+# ロケール（文字コード）をUTF-8に設定
+ENV LANG C.UTF-8
+
+# タイムゾーンを東京に設定(ENV:環境変数)
+ENV TZ Asia/Tokyo
+
+# Bundlerの設定ファイルの保存先を明示
+ENV BUNDLE_APP_CONFIG /myapp/.bundle
+
+# ---------------------------------------------------------------------- #
+# パッケージのインストール前準備（Node.jsとYarnの鍵とレポジトリ追加）
+# [memo] --------------------------------------------------------------- #
+# apt-get:ソフトウェアパッケージ管理に使われるコマンド
+# update:パッケージListを更新するコマンド
+# install:パッケージインストールのコマンド
+# ---------------------------------------------------------------------- #
+RUN apt-get update -qq \
+&& apt-get install -y ca-certificates curl gnupg \
+&& mkdir -p /etc/apt/keyrings \
+&& curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+&& NODE_MAJOR=20 \
+&& echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
+&& wget --quiet -O - /tmp/pubkey.gpg https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+&& echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+# Railsで必要なパッケージを一括インストール
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs yarn vim
+
+# ユーザーを追加（UIDをホストに合わせることで権限トラブル回避）
+RUN useradd -m -u $UID rails
+
+# 作業ディレクトリ作成
+RUN mkdir /myapp
+
+# ディレクトリを作業場所に指定
+WORKDIR /myapp
+
+# アプリのソースコードをコピー
+COPY . /myapp
+
+# railsユーザーに権限を移譲
+RUN chown rails:rails -R /myapp
