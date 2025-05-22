@@ -65,14 +65,15 @@
 #### familymembersテーブル
 | カラム名     | 型       | 説明             |
 | ----------- | -------- | ---------------- |
-| id          | int      | 主キー            |
-| user\_id    | int      | 外部キー（招待したユーザー）   |
-| name        | string   | 家族の名前（表示用）       |
-| line\_uid   | string   | 家族のLINEID（通知に使用） |
-| invited\_at | time     | 招待送信日時           |
-| accepted    | bit      | 参加承認済みかどうか       |
-| created\_at | time     |                  |
-| updated\_at | time     |                  |
+| id            | int      | 主キー            |
+| user\_id      | int      | 外部キー（招待したユーザー）   |
+| name          | string   | 家族の名前（表示用）       |
+| relationship  | string   | 家族との関係性            |
+| line\_uid     | string   | 家族のLINEID（通知に使用） |
+| invited\_at   | time     | 招待送信日時           |
+| accepted      | bit      | 参加承認済みかどうか       |
+| created\_at   | time     |                  |
+| updated\_at   | time     |                  |
 
 #### intakelogsテーブル
 | カラム名          | 型       | 説明                          |
@@ -83,7 +84,7 @@
 | dosetiming\_id   | int      | 外部キー（飲む時間帯）        |
 | scheduled\_at    | time     | 通知された予定時間                 |
 | taken\_at        | time     | 実際に飲んだ時間（未記録ならNULL）  |
-| status           | string   | 服用状態（飲んだ、飲んでいないなど） |
+| status           | int      | 服用状態（0:通知済み、飲んでいない 1:飲んだ 2:スキップ） |
 | created\_at      | time     |                               |
 | updated\_at      | time     |                               |
 
