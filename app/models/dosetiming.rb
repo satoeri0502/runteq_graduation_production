@@ -1,0 +1,2 @@
+class Dosetiming < ApplicationRecord
+end
