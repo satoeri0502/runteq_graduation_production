@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_08_090312) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_08_110936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,15 +77,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_08_090312) do
     t.string "name", null: false
     t.integer "age", null: false
     t.string "gender", null: false
-    t.string "line_uid", null: false
     t.string "email"
     t.integer "reminder_interval"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "crypted_password"
     t.string "salt"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["line_uid"], name: "index_users_on_line_uid", unique: true
+    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
   add_foreign_key "dosetimings", "medicines"
