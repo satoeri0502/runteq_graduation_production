@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_22_132050) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_08_110936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
+  end
 
   create_table "dosetimings", force: :cascade do |t|
     t.string "dose_time", null: false
@@ -68,12 +77,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_22_132050) do
     t.string "name", null: false
     t.integer "age", null: false
     t.string "gender", null: false
-    t.string "line_uid", null: false
     t.string "email"
-    t.string "password_digest"
     t.integer "reminder_interval"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "crypted_password"
+    t.string "salt"
+    t.string "provider"
+    t.string "uid"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
   add_foreign_key "dosetimings", "medicines"
