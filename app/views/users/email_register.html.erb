@@ -1,0 +1,50 @@
+<div class="min-h-screen bg-white flex flex-col justify-between">
+  <!-- ヘッダー -->
+  <div class="bg-cyan-200 p-4">
+    <h1 class="text-purple-600 font-bold text-lg">おくすりベル</h1>
+  </div>
+  <!-- メインカード -->
+  <div class="flex justify-center mt-6">
+    <div class="bg-white w-11/12 max-w-md p-6 rounded-xl shadow-md">
+      <h2 class="text-lg font-bold text-center mb-4">会員登録</h2>
+      <%= form_with model: @user, url: complete_email_users_path do |form| %>
+        <%= render 'shared/error_messages', object: form.object %>
+        <!-- メールアドレス -->
+        <div class="mb-6">
+          <label for="email" class="block font-semibold mb-1">メールアドレス</label>
+          <%= form.email_field :email, required: true, class: "w-full border border-gray-300 rounded px-3 py-2 shadow" %>
+        </div>
+        <!-- パスワード -->
+        <div class="mb-6">
+          <label for="password" class="block font-semibold mb-1">パスワード</label>
+          <p class="text-xs text-gray-600 mb-2">
+            以下の3つの条件を満たしたパスワードを入力してください<br>
+            ・10文字以上16文字以内のパスワード<br>
+            ・英大文字、小文字それぞれ1文字以上使う<br>
+            ・数字を1つ以上使う
+          </p>
+          <%= form.password_field :password, required: true, class: "w-full border border-gray-300 rounded px-3 py-2 shadow" %>
+        </div>
+        <!-- パスワード確認 -->
+        <div class="mb-6">
+          <label for="password_confirmation" class="block font-semibold mb-1">パスワード確認用</label>
+          <p class="text-xs text-gray-600 mb-2">
+            パスワード欄に入力したものと<br>
+            同じパスワードを入力してください
+          </p>
+          <%= form.password_field :password_confirmation, required: true, class: "w-full border border-gray-300 rounded px-3 py-2 shadow" %>
+        </div>
+        <!-- 送信ボタン -->
+        <div class="flex justify-center">
+          <%= form.submit '登録する', class: "bg-cyan-200 text-black font-bold py-2 px-10 rounded-full shadow hover:bg-cyan-300" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <!-- フッター -->
+  <div class="bg-cyan-200 text-xs text-gray-600 p-4 text-left space-y-1">
+    <p>利用規約</p>
+    <p>プライバシーポリシー</p>
+    <p>お問い合わせ</p>
+  </div>
+</div>

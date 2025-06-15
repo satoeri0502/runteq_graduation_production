@@ -1,7 +1,27 @@
 Rails.application.routes.draw do
-  root "pages#index"
+  # test用のページ
+  # root "pages#index"
 
-  post "oauth/callback" => "oauths#callback"
-  get "oauth/callback" => "oauths#callback"
-  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
+  # エントランスルート
+  root 'homes#index'
+
+  # LINEOAuth認証用ルート
+  post 'oauth/callback' => 'oauths#callback'
+  get 'oauth/callback' => 'oauths#callback'
+  get 'oauth/:provider' => 'oauths#oauth', :as => :auth_at_provider
+
+  # 新規登録用ルート
+  resources :users do
+    collection do
+      get  :setup_profile
+      patch :complete_setup
+      get  :email_prompt
+      get  :email_register
+      patch :complete_email
+      get :registration_complete
+    end
+  end
+
+  # おくすり用ルート
+  resources :medicines
 end
