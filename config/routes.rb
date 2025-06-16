@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get 'oauth/callback' => 'oauths#callback'
   get 'oauth/:provider' => 'oauths#oauth', :as => :auth_at_provider
 
+  # メールログイン用ルート
+  get 'login', to: 'user_sessions#new'
+  post 'login', to: 'user_sessions#create'
+
   # 新規登録用ルート
   resources :users do
     collection do

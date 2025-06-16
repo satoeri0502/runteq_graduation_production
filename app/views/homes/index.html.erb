@@ -6,7 +6,7 @@
     <!-- ボタン -->
     <div class="space-y-4">
       <div class="w-4/5 mx-auto">
-        <%= link_to "ログイン", '#', class: "py-2 bg-white text-gray-800 font-bold rounded-full shadow" %>
+        <%= link_to "ログイン", login_path, class: "py-2 bg-white text-gray-800 font-bold rounded-full shadow" %>
       </div>
       <div class="relative w-4/5 mx-auto">
         <%= link_to "LINEで会員登録", auth_at_provider_path(:provider => :line), class: "py-2 bg-white text-gray-800 font-bold rounded-full shadow" %>

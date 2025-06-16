@@ -1,4 +1,6 @@
 class HomesController < ApplicationController
-  # エントランス画面表示
+  skip_before_action :require_login
+
+  # アプリエントランス画面表示
   def index; end;
 end

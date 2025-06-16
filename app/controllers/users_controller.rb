@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :require_login
+
   # 新規登録：
   def setup_profile
     @user = User.find_by(id: session[:user_id])
