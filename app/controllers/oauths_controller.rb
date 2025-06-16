@@ -1,5 +1,6 @@
 class OauthsController < ApplicationController
-  
+  skip_before_action :require_login
+
   # ユーザーをプロバイダーに送る
   def oauth
     login_at(params[:provider])
@@ -8,23 +9,25 @@ class OauthsController < ApplicationController
   # 認証が完了するとコールバックURLに戻る
   def callback
     provider = params[:provider]
-    Rails.logger.debug "Provider: #{provider.inspect}"
-    Rails.logger.debug "Access token: #{access_token(provider).inspect}"
+
     if @user = login_from(provider)
       Rails.logger.debug "Found user: #{@user.inspect}"
       redirect_to root_path, :notice => "Logged in from #{provider.titleize}!"
     else
       begin
-        Rails.logger.debug "User not found. Trying to create new user."
         @user = create_from(provider)
-        Rails.logger.debug "Created user: #{@user.inspect}"
-        # NOTE: this is the place to add '@user.activate!' if you are using user_activation submodule
+        # Rails.logger.debug "Uid: #{@user.id}"
+        # Rails.logger.debug "Uid: #{@user.inspect}"
+        session[:user_id] = @user.id # 初期設定画面で使うため一時保存
 
-        reset_session # protect from session fixation attack
-        auto_login(@user)
-        redirect_to root_path, :notice => "Logged in from #{provider.titleize}!"
+        redirect_to setup_profile_users_path
+
+        # reset_session # protect from session fixation attack
+        # auto_login(@user)
+        # redirect_to root_path, :notice => "Logged in from #{provider.titleize}!"
       rescue => e
         Rails.logger.error "Login failed: #{e.message}"
+        Rails.logger.error e.backtrace.join("\n")
         redirect_to root_path, :alert => "Failed to login from #{provider.titleize}!"
       end
     end

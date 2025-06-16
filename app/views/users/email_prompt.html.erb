@@ -1,0 +1,36 @@
+<div class="min-h-screen bg-white flex flex-col justify-between">
+  <!-- ヘッダー -->
+  <div class="bg-cyan-200 p-4">
+    <h1 class="text-purple-600 font-bold text-lg">おくすりベル</h1>
+  </div>
+  <!-- メインカード -->
+  <div class="flex justify-center mt-6">
+    <div class="bg-white w-11/12 max-w-md p-6 rounded-xl shadow-md">
+      <h2 class="text-center text-lg font-bold mb-2">会員登録</h2>
+      <p class="text-center text-base font-semibold mt-4 mb-3">メールアドレスを<br>
+        登録しますか？</p>
+      <p class="text-center text-xs font-semibold mb-6 leading-relaxed">
+        メールアドレスを登録すると、<br>
+        LINEのアカウントを<br>
+        消してしまっても<br>
+        お薬の情報を見返せます<br>
+        <span class="text-gray-500">※後からでも登録できます</span>
+      </p>
+      <!-- ボタン -->
+      <div class="space-y-3">
+        <!-- 登録する -->
+        <%= button_to '登録する', email_register_users_path, method: :get,
+            class: "w-full bg-cyan-200 text-black font-bold py-2 rounded-full shadow hover:bg-cyan-300" %>
+        <!-- 登録しない -->
+        <%= button_to '登録しない', registration_complete_users_path, method: :get,
+            class: "w-full bg-gray-100 text-black font-bold py-2 rounded-full shadow hover:bg-gray-200" %>
+      </div>
+    </div>
+  </div>
+  <!-- フッター -->
+  <div class="bg-cyan-200 text-xs text-gray-600 p-4 text-left space-y-1">
+    <p>利用規約</p>
+    <p>プライバシーポリシー</p>
+    <p>お問い合わせ</p>
+  </div>
+</div>

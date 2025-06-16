@@ -1,0 +1,35 @@
+<div class="min-h-screen bg-white flex flex-col justify-between">
+  <!-- ヘッダー -->
+  <div class="bg-cyan-200 p-4">
+    <h1 class="text-purple-600 font-bold text-lg">おくすりベル</h1>
+  </div>
+  <!-- メインカード -->
+  <div class="flex justify-center mt-6">
+    <div class="bg-white w-11/12 max-w-md p-6 rounded-xl shadow-md">
+      <h2 class="text-center text-lg font-bold mb-2">会員登録</h2>
+      <p class="text-center text-sm font-semibold mb-6">あなたの情報を入力してください</p>
+      <%= form_with model: @user, url: complete_setup_users_path do |form| %>
+        <!-- 性別 -->
+        <div class="flex items-center justify-between mb-4">
+          <label for="gender" class="font-semibold">性別</label>
+          <%= form.select :gender, ['男性', '女性', 'その他'], { prompt: '選択してください' }, required: true, class: "border rounded px-4 py-1 shadow" %>
+        </div>
+        <!-- 年齢 -->
+        <div class="flex items-center justify-between mb-6">
+          <label for="age" class="font-semibold">年齢</label>
+          <%= form.select :age, (0..100).to_a.map { |age| ["#{age}歳", age] }, { prompt: '選択してください' }, required: true, class: "border rounded px-4 py-1 shadow" %>
+        </div>
+        <!-- 次へボタン -->
+        <div class="flex justify-center">
+          <%= form.submit '次へ', class: "bg-cyan-200 text-black font-bold py-2 px-10 rounded-full shadow hover:bg-cyan-300" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <!-- フッター -->
+  <div class="bg-cyan-200 text-xs text-gray-600 p-4 text-left space-y-1">
+    <p>利用規約</p>
+    <p>プライバシーポリシー</p>
+    <p>お問い合わせ</p>
+  </div>
+</div>
