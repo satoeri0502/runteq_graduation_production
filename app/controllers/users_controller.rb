@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def complete_email
     @user = User.find_by(id: session[:user_id])
-    Rails.logger.debug "email: #{params[:user][:email]}"
+    Rail.logger.debug "email: #{params[:user][:email]}"
     Rails.logger.debug "password: #{params[:user][:password]}"
     Rails.logger.debug "password_C: #{params[:user][:password_confirmation]}"
     if @user.update(email_params)

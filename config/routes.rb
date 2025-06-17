@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "password_resets/create"
+  get "password_resets/edit"
+  get "password_resets/update"
   # test用のページ
   # root "pages#index"
 
@@ -28,4 +31,9 @@ Rails.application.routes.draw do
 
   # おくすり用ルート
   resources :medicines
+
+  # パスワードリセット用
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  get 'password_resets/send_complete', to: 'password_resets#send_complete', as: :complete_password_resets   # リセット申請完了画面表示用
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

@@ -1,0 +1,55 @@
+<div class="min-h-screen bg-white flex flex-col justify-between">
+  <!-- ヘッダー -->
+  <div class="bg-cyan-200 p-4 flex items-center justify-between">
+    <h1 class="text-purple-600 font-bold text-lg">おくすりベル</h1>
+    <div class="space-y-1">
+      <span class="block w-6 h-0.5 bg-gray-600"></span>
+      <span class="block w-6 h-0.5 bg-gray-600"></span>
+      <span class="block w-6 h-0.5 bg-gray-600"></span>
+    </div>
+  </div>
+  <!-- メインカード -->
+  <div class="flex justify-center mt-6">
+    <div class="bg-white w-11/12 max-w-md p-6 rounded-xl shadow-md">
+      <!-- タイトル -->
+      <h2 class="text-center text-lg font-bold mb-4">パスワード変更</h2>
+      <!-- ステップ表示 -->
+      <div class="flex justify-around items-center text-sm mb-6">
+        <div class="text-gray-400">メールアドレス入力</div>
+        <div class="text-cyan-500 font-bold border-b-2 border-cyan-500 pb-1">メール受信確認</div>
+        <div class="text-gray-400">完了</div>
+      </div>
+      <!-- メール送信完了メッセージ -->
+      <p class="text-center font-semibold mb-6">
+        登録されているメールアドレスに<br>
+        メールを送信しました！
+      </p>
+      <!-- 手順説明ボックス -->
+      <div class="border rounded-lg p-4 text-sm text-gray-700">
+        <p class="font-bold mb-2">＊この後の手順＊</p>
+        <p class="mb-2">
+          ◎受信確認<br>
+          〇〇@〇〇.comから「パスワード変更」というメールが<br>
+          届いていることを確認してください。
+        </p>
+        <p>
+          ◎メール内のURLをクリック<br>
+          メールに記載されたURLを押してください。<br>
+          変更完了画面に遷移することができます。
+        </p>
+      </div>
+      <!-- ボタン -->
+      <div class="space-y-3 flex text-center">
+        <!-- トップ画面へ -->
+        <%= link_to 'トップ画面へ', medicines_path,
+              class: "w-full bg-cyan-200 text-black font-bold py-2 rounded-full shadow hover:bg-cyan-300" %>
+      </div>
+    </div>
+  </div>
+  <!-- フッター -->
+  <div class="bg-cyan-200 text-xs text-gray-600 p-4 text-left space-y-1">
+    <p>利用規約</p>
+    <p>プライバシーポリシー</p>
+    <p>お問い合わせ</p>
+  </div>
+</div>
