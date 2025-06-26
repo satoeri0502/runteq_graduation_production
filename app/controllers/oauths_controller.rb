@@ -11,24 +11,19 @@ class OauthsController < ApplicationController
     provider = params[:provider]
 
     if @user = login_from(provider)
-      Rails.logger.debug "Found user: #{@user.inspect}"
-      redirect_to root_path, :notice => "Logged in from #{provider.titleize}!"
+      # ログイン
+      redirect_to medicines_path, :success => "#{provider.titleize}ログインに成功しました！"
     else
+      # 会員登録
       begin
         @user = create_from(provider)
-        # Rails.logger.debug "Uid: #{@user.id}"
-        # Rails.logger.debug "Uid: #{@user.inspect}"
         session[:user_id] = @user.id # 初期設定画面で使うため一時保存
 
-        redirect_to setup_profile_users_path
-
-        # reset_session # protect from session fixation attack
-        # auto_login(@user)
-        # redirect_to root_path, :notice => "Logged in from #{provider.titleize}!"
+        redirect_to setup_profile_users_path  # ユーザ情報入力画面へ遷移
       rescue => e
         Rails.logger.error "Login failed: #{e.message}"
         Rails.logger.error e.backtrace.join("\n")
-        redirect_to root_path, :alert => "Failed to login from #{provider.titleize}!"
+        redirect_to root_path, :alert => "#{provider.titleize}登録に失敗しました"
       end
     end
   end

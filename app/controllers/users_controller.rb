@@ -1,46 +1,45 @@
 class UsersController < ApplicationController
   skip_before_action :require_login
 
-  # 新規登録：
+  # 新規登録：メアド、性別登録画面
   def setup_profile
     @user = User.find_by(id: session[:user_id])
-    Rails.logger.debug "setup_User: #{@user.inspect}"
     redirect_to root_path, alert: "ユーザー情報が見つかりません" unless @user
   end
 
+  # 新規登録：メアド、性別登録処理
   def complete_setup
     @user = User.find_by(id: session[:user_id])
-    Rails.logger.debug "params1: #{params[:user][:age]}"
-    Rails.logger.debug "params2: #{params[:user][:gender]}"
     if @user.update(setup_params)
-      Rails.logger.debug "comp_User: #{@user.inspect}"
-      redirect_to email_prompt_users_path
+      redirect_to email_prompt_users_path   # メール登録推奨画面へ遷移
     else
+      Rails.logger.debug "▼▼▼ メアド・性別登録失敗 ▼▼▼"
       Rails.logger.debug @user.errors.full_messages
+      render :setup_profile, status: :unprocessable_entity
     end
   end
 
+  # メール登録推奨画面
   def email_prompt; end;
 
+  # メール登録画面
   def email_register
     @user = User.find_by(id: session[:user_id])
   end
 
+  # メール登録処理
   def complete_email
     @user = User.find_by(id: session[:user_id])
-    Rail.logger.debug "email: #{params[:user][:email]}"
-    Rails.logger.debug "password: #{params[:user][:password]}"
-    Rails.logger.debug "password_C: #{params[:user][:password_confirmation]}"
     if @user.update(email_params)
-      Rails.logger.debug "compmail_User: #{@user.inspect}"
       redirect_to registration_complete_users_path
     else
-      Rails.logger.debug "▼▼▼ update失敗 ▼▼▼"
+      Rails.logger.debug "▼▼▼ メール登録失敗 ▼▼▼"
       Rails.logger.debug @user.errors.full_messages
       render :email_register, status: :unprocessable_entity
     end
   end
 
+  # ユーザ情報登録完了画面
   def registration_complete
     @user = User.find_by(id: session[:user_id])
     auto_login(@user)
