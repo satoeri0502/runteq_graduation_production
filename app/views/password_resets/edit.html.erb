@@ -1,13 +1,4 @@
-<div class="min-h-screen bg-white flex flex-col justify-between">
-  <!-- ヘッダー -->
-  <div class="bg-cyan-200 p-4 flex items-center justify-between">
-    <h1 class="text-purple-600 font-bold text-lg">おくすりベル</h1>
-    <div class="space-y-1">
-      <span class="block w-6 h-0.5 bg-gray-600"></span>
-      <span class="block w-6 h-0.5 bg-gray-600"></span>
-      <span class="block w-6 h-0.5 bg-gray-600"></span>
-    </div>
-  </div>
+<div class="bg-white flex flex-col justify-between">
   <!-- メインカード -->
   <div class="flex justify-center mt-6">
     <div class="bg-white w-11/12 max-w-md p-6 rounded-xl shadow-md">
@@ -32,7 +23,7 @@
             ・英大文字、小文字それぞれ1文字以上<br>
             ・数字を1つ以上
           </p>
-          <%= form.password_field :password, placeholder: "入力してください", class: "w-full border border-gray-300 rounded px-3 py-2 shadow" %>
+          <%= form.password_field :password, required: true, placeholder: "入力してください", class: "w-full border border-gray-300 rounded px-3 py-2 shadow" %>
         </div>
         <!-- パスワード確認 -->
         <div class="mb-6">
@@ -40,7 +31,7 @@
           <p class="text-xs text-gray-600 mb-2">
             上で入力したパスワードと同じものを入力してください
           </p>
-          <%= form.password_field :password_confirmation, placeholder: "入力してください", class: "w-full border border-gray-300 rounded px-3 py-2 shadow" %>
+          <%= form.password_field :password_confirmation, required: true, placeholder: "入力してください", class: "w-full border border-gray-300 rounded px-3 py-2 shadow" %>
         </div>
         <!-- 変更ボタン -->
         <div class="flex justify-center">
@@ -48,11 +39,5 @@
         </div>
       <% end %>
     </div>
-  </div>
-  <!-- フッター -->
-  <div class="bg-cyan-200 text-xs text-gray-600 p-4 text-left space-y-1">
-    <p>利用規約</p>
-    <p>プライバシーポリシー</p>
-    <p>お問い合わせ</p>
   </div>
 </div>

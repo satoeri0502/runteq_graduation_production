@@ -17,8 +17,16 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
-  <body>
-    <%= render 'shared/flash_message' %>
-    <%= yield %>
+  <body class="h-screen w-full flex flex-col">
+    <header class="h-[7.5vh] bg-cyan-200 flex items-center">
+      <%= render 'shared/header' %>
+    </header>
+    <main class="h-[77.5vh] overflow-auto">
+      <%= render 'shared/flash_message' %>
+      <%= yield %>
+    </main>
+    <footer class="h-[15vh] bg-white">
+      <%= render 'shared/footer' %>
+    </footer>
   </body>
 </html>

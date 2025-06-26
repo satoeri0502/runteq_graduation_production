@@ -1,5 +1,56 @@
-<h1>ログインしました。</h1>
-<%= @user.id %>
-<%= @user.name %>
-<%= @user.age %>
-<%= @user.gender %>
+<main class="px-4 py-6 space-y-6">
+
+  <!-- お薬一覧 -->
+  <section class="bg-white rounded-xl shadow-md p-4">
+    <h2 class="text-lg font-bold mb-3">お薬一覧</h2>
+    <div class="overflow-x-auto">
+      <% if @medicines.present? %>
+        <table class="w-full text-sm border border-gray-300">
+          <thead class="bg-cyan-100 text-left">
+            <tr>
+              <th class="p-2 border">お薬名</th>
+              <th class="p-2 border">1回の服用量</th>
+              <th class="p-2 border">服用タイミング</th>
+              <th class="p-2 border">残数</th>
+              <th class="p-2 border">おしらせ時間</th>
+              <th class="p-2 border">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @medicines.each do |medicine| %>
+              <tr class="bg-white border-b">
+                <td class="p-2 border"><%= medicine.name %></td>
+                <td class="p-2 border"><%= medicine.dosage %></td>
+                <td class="p-2 border"><%= medicine.timing %></td>
+                <td class="p-2 border"><%= medicine.stock %></td>
+                <td class="p-2 border"><%= medicine.notify_time %></td>
+                <td class="p-2 border text-center space-x-1">
+                  <%= link_to "変更", edit_medicine_path(medicine), class: "text-xs bg-cyan-400 text-white rounded px-2 py-1" %>
+                  <%= link_to "削除", medicine_path(medicine), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "text-xs bg-gray-400 text-white rounded px-2 py-1" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="text-center my-6 text-lg font-bold">登録されているお薬はありません</p>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- お薬を登録する -->
+  <div class="text-center my-6">
+    <%= link_to "＋ おくすりを登録する", "#",
+        class: "inline-block bg-cyan-500 text-white text-lg font-bold py-3 px-6 rounded-full shadow hover:bg-cyan-600" %>
+  </div>
+
+  <!-- ナビゲーションボタン -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 px-4 mt-6">
+    <%= link_to "服薬履歴を見る", "#",
+        class: "w-full bg-white border border-gray-300 text-lg py-4 rounded-xl shadow text-center" %>
+    <%= link_to "家族を登録する", "#",
+        class: "w-full bg-white border border-gray-300 text-lg py-4 rounded-xl shadow text-center" %>
+    <%= link_to "飲み忘れ通知の設定", "#",
+        class: "w-full bg-white border border-gray-300 text-lg py-4 rounded-xl shadow text-center" %>
+  </div>
+</main>

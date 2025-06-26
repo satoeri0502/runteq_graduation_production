@@ -1,22 +1,17 @@
-<div class="min-h-screen bg-white flex items-center justify-center">
-  <div class="w-100 bg-cyan-200 text-center py-10 rounded-md shadow-lg relative">
+<div class="bg-white flex flex-col justify-between">
+  <!-- メインコンテンツ -->
+  <div class="w-full bg-cyan-200 flex flex-col items-center justify-center h-[85vh] text-center">
     <!-- タイトル -->
-    <h1 class="text-2xl font-bold text-purple-600 mb-1">おくすりベル</h1>
-    <p class="text-sm text-purple-800 mb-6">LINEでおくすりの時間をおしらせ！</p>
+    <div class="px-4">
+      <h1 class="text-2xl font-bold text-purple-600 mb-1">おくすりベル</h1>
+      <p class="text-sm text-purple-800 mb-10">LINEでおくすりの時間をおしらせ！</p>
+    </div>
     <!-- ボタン -->
-    <div class="space-y-4">
-      <div class="w-4/5 mx-auto">
-        <%= link_to "ログイン", login_path, class: "py-2 bg-white text-gray-800 font-bold rounded-full shadow" %>
-      </div>
-      <div class="relative w-4/5 mx-auto">
-        <%= link_to "LINEで会員登録", auth_at_provider_path(:provider => :line), class: "py-2 bg-white text-gray-800 font-bold rounded-full shadow" %>
-      </div>
+    <div class="space-y-4 w-4/5">
+      <%= link_to "ログイン", login_path,
+          class: "w-full py-2 bg-white text-gray-800 font-bold rounded-full block text-center shadow hover:bg-gray-100 active:bg-gray-200" %>
+      <%= link_to "LINEで会員登録", auth_at_provider_path(provider: :line),
+          class: "w-full py-2 bg-white text-gray-800 font-bold rounded-full block text-center shadow hover:bg-gray-100 active:bg-gray-200" %>
     </div>
-    <!-- フッターリンク -->
-    <div class="mt-10 bg-white text-left text-xs text-gray-500 space-y-1 px-6">
-      <p>利用規約</p>
-      <p>プライバシーポリシー</p>
-      <p>お問い合わせ</p>
-    </div>
-  </div>
+  </div>  
 </div>
