@@ -1,0 +1,40 @@
+<main class="px-4 py-6 space-y-6">
+  <h2 class="text-2xl font-bold text-center underline decoration-dotted decoration-[cyan] mb-4">お薬情報の変更</h2>
+  <section class="bg-white rounded-xl shadow-md max-w-xl mx-auto p-6 space-y-6">
+    <%= form_with model: @medicine, local: true do |f| %>
+      <!-- お薬名 -->
+      <div class="space-y-1 mb-2">
+        <%= f.label :name, "薬の名前", class: "font-semibold" %>
+        <%= f.text_field :name, class: "w-full border border-gray-300  rounded px-3 py-2" %>
+      </div>
+      <!-- 在庫数 -->
+      <div class="space-y-1 mb-2">
+        <%= f.label :stock_count, "在庫数", class: "font-semibold" %>
+        <%= f.number_field :stock_count, class: "w-full border border-gray-300 rounded px-3 py-2" %>
+      </div>
+      <!-- 1回の服用量 -->
+      <div class="space-y-1 mb-2">
+        <%= f.label :pills_per_dose, "1回の服用量（錠）", class: "font-semibold" %>
+        <%= f.number_field :pills_per_dose, class: "w-full border border-gray-300 rounded px-3 py-2" %>
+      </div>
+      <hr class="my-4 border-gray-500">
+      <!-- 服用時間帯とお知らせ時間 -->
+      <h3 class="text-lg font-bold text-center mb-2">服用時間帯／お知らせ時間</h3>
+      <div id="dosetiming-container">
+        <%= f.fields_for :dosetimings do |dt| %>
+          <%= render 'dosetiming_fields', f: dt %>
+        <% end %>
+      </div>
+      <%= link_to_add_association '時間帯を追加', f, :dosetimings,
+          data: {
+            association_insertion_node: "#dosetiming-container",
+            association_insertion_method: "append"
+          },
+          class: "bg-lime-300 text-emerald-800 font-bold px-3 py-2 rounded" %>
+      <!-- 送信ボタン -->
+      <div class="text-center mt-10">
+        <%= f.submit "変更を保存", class: "bg-cyan-400 hover:bg-cyan-500 text-white font-bold py-3 px-8 rounded-full shadow" %>
+      </div>
+    <% end %>
+  </section>
+</main>

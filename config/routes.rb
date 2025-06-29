@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   end
 
   # おくすり用ルート
-  resources :medicines
+  resources :medicines, only: [ :index, :edit, :update, :destroy ]
   get   "medicines/wizard/:id", to: "medicines_wizard#show",   as: :medicine_wizard
   patch "medicines/wizard/:id", to: "medicines_wizard#update"
 

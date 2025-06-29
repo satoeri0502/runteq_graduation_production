@@ -17,7 +17,7 @@
       <% end %>
     </div>
     <h2 class="text-3xl font-bold text-center mb-5 underline decoration-dotted decoration-[cyan]">お薬登録</h2>
-    <%= form_with url: medicine_wizard_path(:dosetiming), method: :patch, scope: :dosetiming, local: true do %>
+    <%= form_with url: medicine_wizard_path(:dosetiming), method: :patch, scope: :dosetiming, local: true, data: { turbo: false } do %>
       <!-- 服用時間帯 -->
       <div>
         <p class="font-bold text-center">飲む時間帯すべてにチェックを入れてください</p>
@@ -56,7 +56,7 @@
           <%= number_field_tag 'dosetiming[pills_per_dose]', nil,
                 placeholder: '数字を入力してください',
                 required: true,
-                class: 'border rounded px-3 py-1 w-full text-center' %>
+                class: 'border border-gray-300 rounded px-3 py-1 w-full text-center' %>
           <span>錠</span>
         </div>
       </div>

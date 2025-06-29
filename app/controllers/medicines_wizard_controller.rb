@@ -47,6 +47,11 @@ class MedicinesWizardController < ApplicationController
     when :dosetiming
       # ステップ②：飲む時間帯、飲むタイミング、１回あたり服用数入力
       # dose_times: ["morning","evening"] のように複数選択可能
+      if params[:dosetiming][:dose_times].blank? || params[:dosetiming][:dose_timing].blank?
+        flash.now[:error] = "飲む時間帯とタイミングは必須です。どちらも選択してください。"
+        @dosetiming = OpenStruct.new(params)  # フォームに戻すためのオブジェクト
+        return render_wizard  # バリデーションエラー時は次ステップへ進まず、このステップを再描画
+      end
       session[:wizard]["dosetiming"] = params.require(:dosetiming)
                                             .permit(:dose_timing, :pills_per_dose, dose_times: [])
                                             .to_h
