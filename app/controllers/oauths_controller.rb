@@ -12,7 +12,7 @@ class OauthsController < ApplicationController
 
     if @user = login_from(provider)
       # ログイン
-      redirect_to medicines_path, :success => "#{provider.titleize}ログインに成功しました！"
+      redirect_to medicines_path, success: "#{provider.titleize}でのログインに成功しました！"
     else
       # 会員登録
       begin
@@ -23,7 +23,7 @@ class OauthsController < ApplicationController
       rescue => e
         Rails.logger.error "Login failed: #{e.message}"
         Rails.logger.error e.backtrace.join("\n")
-        redirect_to root_path, :alert => "#{provider.titleize}登録に失敗しました"
+        redirect_to root_path, alert: "#{provider.titleize}登録に失敗しました"
       end
     end
   end

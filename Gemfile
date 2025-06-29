@@ -43,12 +43,15 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # 認証機能用Gem
-gem 'sorcery'
+gem "sorcery"
 
 # LINEログイン用追加Gem
-gem 'omniauth-auth0'
-gem 'omniauth-line'
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth-auth0"
+gem "omniauth-line"
+gem "omniauth-rails_csrf_protection"
+
+# ステップ形式登録用Gem
+gem "wicked"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -61,7 +64,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # letter_opener
-  gem 'letter_opener_web', '2.0.0'
+  gem "letter_opener_web", "2.0.0"
 end
 
 group :development do
