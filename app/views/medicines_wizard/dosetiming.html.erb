@@ -1,0 +1,70 @@
+<main class="px-4 py-6 space-y-6">
+  <section class="bg-white rounded-xl p-6 shadow-md max-w-xl mx-auto">
+    <!-- ステップバー -->
+    <div class="flex items-center justify-between mb-5 text-xs">
+      <% steps = ["おくすり名\n入力", "服用情報\n入力", "残量数\n入力", "お知らせ時間\n入力", "内容確認"] %>
+      <% steps.each_with_index do |label, i| %>
+        <div class="flex flex-col items-center">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center
+                      <%=
+                        i == 1 ? 'bg-cyan-400 text-white' :
+                        'bg-gray-300 text-gray-700'
+                      %>">
+            <%= i + 1 %>
+          </div>
+          <p class="text-center whitespace-pre text-[10px] mt-1"><%= label %></p>
+        </div>
+      <% end %>
+    </div>
+    <h2 class="text-3xl font-bold text-center mb-5 underline decoration-dotted decoration-[cyan]">お薬登録</h2>
+    <%= form_with url: medicine_wizard_path(:dosetiming), method: :patch, scope: :dosetiming, local: true do %>
+      <!-- 服用時間帯 -->
+      <div>
+        <p class="font-bold text-center">飲む時間帯すべてにチェックを入れてください</p>
+        <p class="text-red-500 text-sm text-center mt-1">※複数にチェックできます</p>
+        <div class="border border-gray-300 rounded p-4 mt-3 mb-7 grid grid-cols-3 gap-2 text-sm">
+          <% %w[起床 朝 昼 夕 就寝].each do |label| %>
+            <label class="flex items-center space-x-2">
+              <%= check_box_tag 'dosetiming[dose_times][]', label, false, id: "dose_time_#{label}" %>
+              <span><%= label %></span>
+            </label>
+          <% end %>
+          <label class="col-span-3 flex items-center space-x-2">
+            <%= check_box_tag 'dosetiming[dose_times][]', 'その他', false, id: "dose_time_other" %>
+            <%= text_field_tag 'dosetiming[other_time]', nil,
+                  placeholder: '時間帯を入力してください',
+                  class: 'border rounded px-2 py-1 w-full text-sm' %>
+          </label>
+        </div>
+      </div>
+      <!-- 飲むタイミング -->
+      <div>
+        <p class="font-bold text-center">飲むタイミングを1つ選んでください</p>
+        <div class="border border-gray-300 rounded p-4 mt-3 mb-7 grid grid-cols-3 gap-2 text-sm">
+          <% %w[起床後 食前 食後 食間 就寝前].each do |timing| %>
+            <label class="flex items-center space-x-2">
+              <%= radio_button_tag 'dosetiming[dose_timing]', timing, false, id: "dose_timing_#{timing}" %>
+              <span><%= timing %></span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+      <!-- 錠数入力 -->
+      <div>
+        <p class="font-bold text-center">1回に何錠飲みますか？</p>
+        <div class="flex justify-center items-center mt-2 space-x-2">
+          <%= number_field_tag 'dosetiming[pills_per_dose]', nil,
+                placeholder: '数字を入力してください',
+                required: true,
+                class: 'border rounded px-3 py-1 w-full text-center' %>
+          <span>錠</span>
+        </div>
+      </div>
+      <!-- 戻る / 次へ ボタン -->
+      <div class="text-center mt-10 space-x-4">
+        <%= link_to '戻る', previous_wizard_path, class: "bg-gray-200 text-black font-bold rounded-full py-2 px-6 shadow hover:bg-gray-400" %>
+        <%= submit_tag '次へ', class: "bg-cyan-400 text-white font-bold rounded-full py-2 px-6 shadow hover:bg-cyan-600" %>
+      </div>
+    <% end %>
+  </section>
+</main>

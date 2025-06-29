@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_17_113511) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_28_161601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,8 +64,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_113511) do
     t.integer "dose_per_day", null: false
     t.integer "pills_per_dose", null: false
     t.integer "stock_count", null: false
-    t.integer "stock_alert_count", null: false
-    t.integer "stock_alert_month", null: false
+    t.integer "stock_alert_count", default: 0, null: false
+    t.integer "stock_alert_month", default: 0, null: false
     t.string "medicine_image"
     t.bigint "user_id"
     t.datetime "created_at", null: false

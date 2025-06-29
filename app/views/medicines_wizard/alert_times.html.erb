@@ -1,0 +1,42 @@
+<main class="px-4 py-6 space-y-6">
+  <section class="bg-white rounded-xl p-6 shadow-md max-w-xl mx-auto">
+    <!-- ステップバー -->
+    <div class="flex items-center justify-between mb-5 text-xs">
+      <% steps = ["おくすり名\n入力", "服用情報\n入力", "残量数\n入力", "お知らせ時間\n入力", "内容確認"] %>
+      <% steps.each_with_index do |label, i| %>
+        <div class="flex flex-col items-center">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center
+                      <%=
+                        i == 3 ? 'bg-cyan-400 text-white' :
+                        'bg-gray-300 text-gray-700'
+                      %>">
+            <%= i + 1 %>
+          </div>
+          <p class="text-center whitespace-pre text-[10px] mt-1"><%= label %></p>
+        </div>
+      <% end %>
+    </div>
+    <h2 class="text-3xl font-bold text-center mb-5 underline decoration-dotted decoration-[cyan]">お薬登録</h2>
+    <%= form_with url: medicine_wizard_path(:alert_times), method: :patch, local: true do %>
+      <!-- 見出し -->
+      <p class="text-center font-bold">お知らせする時間を入力してください</p>
+      <!-- 時間入力エリア -->
+      <div class="border border-gray-300 rounded-md p-4 mt-3 mx-auto w-full max-w-xs space-y-4">
+        <% dose_times = session[:wizard]["dosetiming"]["dose_times"] || [] %>
+        <% dose_times.each_with_index do |time_label, index| %>
+          <div class="flex items-center justify-between">
+            <label class="text-md font-semibold w-1/3"><%= time_label_jp(time_label) %></label>
+            <%= time_field_tag "dosetiming[reminder_times][]", nil,
+              required: true,
+              class: "border rounded px-3 py-1 w-2/3 text-center" %>
+          </div>
+        <% end %>
+      </div>
+      <!-- 戻る / 次へ -->
+      <div class="text-center mt-10 space-x-4">
+        <%= link_to '戻る', previous_wizard_path, class: "bg-gray-200 text-black font-bold rounded-full py-2 px-6 shadow hover:bg-gray-400" %>
+        <%= submit_tag '次へ', class: "bg-cyan-400 text-white font-bold rounded-full py-2 px-6 shadow hover:bg-cyan-600" %>
+      </div>
+    <% end %>
+  </section>
+</main>

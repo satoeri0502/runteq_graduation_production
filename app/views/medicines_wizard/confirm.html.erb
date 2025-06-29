@@ -1,0 +1,77 @@
+<main class="px-4 py-6 space-y-6">
+  <section class="bg-white rounded-xl p-6 shadow-md max-w-xl mx-auto">
+    <!-- ステップバー -->
+    <div class="flex items-center justify-between mb-5 text-xs">
+      <% steps = ["おくすり名\n入力", "服用情報\n入力", "残量数\n入力", "お知らせ時間\n入力", "内容確認"] %>
+      <% steps.each_with_index do |label, i| %>
+        <div class="flex flex-col items-center">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center
+                      <%=
+                        i == 4 ? 'bg-cyan-400 text-white' :
+                        'bg-gray-300 text-gray-700'
+                      %>">
+            <%= i + 1 %>
+          </div>
+          <p class="text-center whitespace-pre text-[10px] mt-1"><%= label %></p>
+        </div>
+      <% end %>
+    </div>
+    <h2 class="text-3xl font-bold text-center mb-5 underline decoration-dotted decoration-[cyan]">お薬登録</h2>
+    <%= form_with url: medicine_wizard_path(:confirm), method: :patch, local: true do %>
+      <p class="text-center font-bold text-lg mb-2">
+        この内容で登録します<br>
+        よろしいですか？
+      </p>
+      <p class="text-center text-sm text-gray-500 mb-3">間違っている場合は修正ボタンを押すと<br>
+        内容を修正できます</p>
+      <!-- 入力内容表示 -->
+      <div class="border rounded-md p-4 space-y-4 text-base mb-5">
+        <!-- おくすり名 -->
+        <div>
+          <p class="font-bold">
+            おくすり名
+            <%= link_to "修正", wizard_path(:name), class: "text-cyan-600 text-sm ml-2 underline" %>
+          </p>
+          <p class="ml-5"><%= session[:wizard]["medicine"]["name"] %></p>
+        </div>
+        <!-- 飲む時間帯とタイミング -->
+        <div>
+          <p class="font-bold">
+            飲む時間帯とタイミング
+            <%= link_to "修正", wizard_path(:dosage), class: "text-cyan-600 text-sm ml-2 underline" %>
+          </p>
+          <p class="ml-5">
+            <%= (session[:wizard]["dosetiming"]["dose_times"] || []).map { |t| time_label_jp(t) }.join("・") %>
+            <%= session[:wizard]["dosetiming"]["dose_timing"].present? ? "　#{session[:wizard]["dosetiming"]["dose_timing"]}" : "" %>
+          </p>
+        </div>
+        <!-- 服用数 -->
+        <div>
+          <p class="font-bold">
+            1回に飲む個数
+            <%= link_to "修正", wizard_path(:dosage), class: "text-cyan-600 text-sm ml-2 underline" %>
+          </p>
+          <p class="ml-5"><%= session[:wizard]["dosetiming"]["pills_per_dose"] %> 錠</p>
+        </div>
+        <!-- 通知時間 -->
+        <div>
+          <p class="font-bold">
+            お知らせタイミング
+            <%= link_to "修正", wizard_path(:alert_times), class: "text-cyan-600 text-sm ml-2 underline" %>
+          </p>
+          <ul class="list-disc ml-10">
+            <% times = session[:wizard]["dosetiming"]["reminder_times"] || [] %>
+            <% labels = session[:wizard]["dosetiming"]["dose_times"] || [] %>
+            <% labels.each_with_index do |label, idx| %>
+              <li><%= time_label_jp(label) %>：<%= times[idx] %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <!-- 登録ボタン -->
+      <div class="text-center">
+        <%= submit_tag '登録する', class: "bg-cyan-400 text-white text-lg font-bold py-3 px-8 rounded-full shadow hover:bg-cyan-600" %>
+      </div>
+    <% end %>
+  </section>
+</main>
