@@ -4,6 +4,12 @@ class MedicinesController < ApplicationController
     @medicines = current_user.medicines
   end
 
+  def destroy
+    medicine = current_user.medicines.find(params[:id])
+    medicine.destroy!
+    redirect_to medicines_path, success: "おくすりを1件削除しました！"
+  end
+
   private
 
   def medicine_params
