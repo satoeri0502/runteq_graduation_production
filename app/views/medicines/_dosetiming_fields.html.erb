@@ -1,0 +1,25 @@
+<div class="nested-fields border border-gray-300 rounded p-4 space-y-4 mb-4 bg-slate-50">
+  <!-- 時間帯 -->
+  <div class="space-y-1">
+    <%= f.label :dose_time, "時間帯", class: "font-semibold" %>
+    <%= f.select :dose_time, ["起床", "朝", "昼", "夕", "就寝"],
+                  {}, class: "w-full border border-gray-300 rounded px-3 py-2 bg-white" %>
+  </div>
+  <!-- タイミング -->
+  <div class="space-y-1">
+    <%= f.label :dose_timing, "タイミング", class: "font-semibold" %>
+    <%= f.select :dose_timing, ["起床後", "食前", "食後", "食間", "就寝前"],
+                  {}, class: "w-full border border-gray-300 rounded px-3 py-2 bg-white" %>
+  </div>
+  <!-- お知らせ時刻 -->
+  <div class="space-y-1">
+    <%= f.label :reminder_time, "お知らせ時刻", class: "font-semibold" %>
+    <%= f.time_field :reminder_time, class: "w-full border border-gray-300 rounded px-3 py-2 bg-white" %>
+  </div>
+  <!-- 削除チェック -->
+  <div class="flex items-center space-x-2">
+    <%= link_to_remove_association "この時間帯を削除する", f, 
+        data: { confirm: "本当にこの時間帯を削除しますか？" },
+        class: "bg-red-100 text-red-600 px-3 py-1 rounded" %>
+  </div>
+</div>

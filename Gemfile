@@ -53,6 +53,10 @@ gem "omniauth-rails_csrf_protection"
 # ステップ形式登録用Gem
 gem "wicked"
 
+# 動的に入力フィールドを追加する用Gem
+gem "cocoon"
+gem "jquery-rails"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
