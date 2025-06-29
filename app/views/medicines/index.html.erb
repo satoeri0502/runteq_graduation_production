@@ -28,7 +28,7 @@
                 <td class="p-2 border"><%= medicine.stock_count %></td>
                 <td class="p-2 border">
                   <%= medicine.dosetimings.map{ |dose|
-                    dose.reminder_time.strftime("%H:%m")
+                    dose.reminder_time.strftime("%H:%M")
                   }.join("<br>").html_safe %>
                 </td>
                 <td class="p-2 border text-center">
