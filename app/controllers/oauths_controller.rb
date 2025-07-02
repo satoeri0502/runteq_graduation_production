@@ -19,6 +19,10 @@ class OauthsController < ApplicationController
         @user = create_from(provider)
         session[:user_id] = @user.id # 初期設定画面で使うため一時保存
 
+        # LINEのuidを users.line_user_id に保存
+        authentication = Authentication.find_by(user_id: @user.id, provider: provider)
+        @user.update(line_user_id: authentication.uid) if provider == "line" && authentication.present?
+
         redirect_to setup_profile_users_path  # ユーザ情報入力画面へ遷移
       rescue => e
         Rails.logger.error "Login failed: #{e.message}"
