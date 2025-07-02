@@ -50,6 +50,15 @@ gem "omniauth-auth0"
 gem "omniauth-line"
 gem "omniauth-rails_csrf_protection"
 
+# LINEメッセージ送信用Gem
+gem 'line-bot-api'
+
+# 非同期ジョブを処理するためのバックグラウンドジョブ処理ライブラリ
+gem 'sidekiq'
+
+# Sidekiqを使用して定期的なジョブ実行を行う
+gem 'sidekiq-scheduler'
+
 # ステップ形式登録用Gem
 gem "wicked"
 
