@@ -222,8 +222,8 @@ Rails.application.config.sorcery.configure do |config|
   # config.line.key = Rails.application.credentials.dig(:line, :channel_id)
   # config.line.secret = Rails.application.credentials.dig(:line, :login_channel_secret)
   # config.line.callback_url = Rails.application.config.line_callback_url
-  config.send(:line).client_id = ENV["LINE_CHANNEL_ID"]
-  config.send(:line).client_secret = ENV["LINE_CHANNEL_SECRET"]
+  config.send(:line).key = ENV["LINE_CHANNEL_ID"]
+  config.send(:line).secret = ENV["LINE_CHANNEL_SECRET"]
   config.send(:line).callback_url = ENV["LINE_CALLBACK_URL"]
   config.line.scope = "profile"
   # config.line.bot_prompt = "normal"
