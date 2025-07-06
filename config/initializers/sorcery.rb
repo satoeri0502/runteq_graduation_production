@@ -219,9 +219,14 @@ Rails.application.config.sorcery.configure do |config|
   # config.salesforce.scope = "full"
   # config.salesforce.user_info_mapping = {:email => "email"}
 
-  config.line.key = Rails.application.credentials.dig(:line, :channel_id)
-  config.line.secret = Rails.application.credentials.dig(:line, :login_channel_secret)
-  config.line.callback_url = Rails.application.config.line_callback_url
+  # config.line.key = Rails.application.credentials.dig(:line, :channel_id)
+  # config.line.secret = Rails.application.credentials.dig(:line, :login_channel_secret)
+  # config.line.callback_url = Rails.application.config.line_callback_url
+  config.line do |line|
+    line.key = ENV['LINE_CHANNEL_ID']
+    line.secret = ENV['LINE_CHANNEL_SECRET']
+    line.callback_url = ENV['LINE_CALLBACK_URL'] # ←ここが重要！
+  end
   config.line.scope = "profile"
   # config.line.bot_prompt = "normal"
   config.line.user_info_mapping = { uid: "userId", name: "displayName" }
