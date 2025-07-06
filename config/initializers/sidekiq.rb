@@ -1,6 +1,6 @@
 require "sidekiq/cron/job"
 # RedisのURLを環境変数から取得（なければローカル用）
-redis_url = ENV.fetch('REDIS_URL') { 'redis://localhost:6379/0' }
+redis_url = ENV.fetch("REDIS_URL") { "redis://localhost:6379/0" }
 
 Sidekiq.configure_server do |config|
   config.redis = { url: redis_url }
