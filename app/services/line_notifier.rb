@@ -7,8 +7,7 @@ class LineNotifier
   API_ENDPOINT = "https://api.line.me/v2/bot/message/push"
 
   def self.send_message(to:, message:)
-    token = Rails.application.credentials.dig(:line, :channel_token)
-    Rails.logger.debug "LINE TOKEN: #{Rails.application.credentials.dig(:line, :channel_token)}"
+    token = ENV['LINE_CHANNEL_TOKEN']
     raise "LINEアクセストークンが設定されていません" unless token.present?
 
     uri = URI.parse(API_ENDPOINT)
