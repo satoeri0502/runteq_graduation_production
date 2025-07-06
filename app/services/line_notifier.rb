@@ -7,7 +7,7 @@ class LineNotifier
   API_ENDPOINT = "https://api.line.me/v2/bot/message/push"
 
   def self.send_message(to:, message:)
-    token = ENV['LINE_CHANNEL_TOKEN']
+    token = ENV["LINE_CHANNEL_TOKEN"]
     raise "LINEアクセストークンが設定されていません" unless token.present?
 
     uri = URI.parse(API_ENDPOINT)
