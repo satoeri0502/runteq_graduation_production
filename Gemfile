@@ -54,10 +54,12 @@ gem "omniauth-rails_csrf_protection"
 gem 'line-bot-api'
 
 # 非同期ジョブを処理するためのバックグラウンドジョブ処理ライブラリ
-gem 'sidekiq'
-
 # Sidekiqを使用して定期的なジョブ実行を行う
-gem 'sidekiq-scheduler'
+gem 'sidekiq'
+gem 'sidekiq-cron'
+
+# 非RDB
+gem 'redis'
 
 # ステップ形式登録用Gem
 gem "wicked"

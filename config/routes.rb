@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   get "password_resets/create"
   get "password_resets/edit"
   get "password_resets/update"

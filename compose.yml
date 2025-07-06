@@ -31,5 +31,18 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
+  # redisコンテナはデフォルトで0〜15のインデックスのDBが作成され、リッスンポート6379で起動し、 
+  # /dataに60秒に1回スナップショット(Redis Databaseファイル)を作成するようになっている
+  redis:
+    container_name: redis
+    # dockerホスト起動時にコンテナが起動するよう設定
+    restart: always
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data"
 volumes:
   postgresql_data:

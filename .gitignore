@@ -43,3 +43,6 @@
 # VSCode or JetBrains IDE settings (optional but recommended)
 .vscode/
 .idea/
+
+# Redis のデータファイルを除外
+data/redis/
