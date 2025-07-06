@@ -226,6 +226,9 @@ Rails.application.config.sorcery.configure do |config|
     line.client_id = ENV["LINE_CHANNEL_ID"]
     line.client_secret = ENV["LINE_CHANNEL_SECRET"]
     line.callback_url = ENV["LINE_CALLBACK_URL"]
+
+    puts "LINE_CHANNEL_ID: #{ENV['LINE_CHANNEL_ID'].inspect}"
+    puts "LINE_CALLBACK_URL: #{ENV['LINE_CALLBACK_URL'].inspect}"
   end
   config.line.scope = "profile"
   # config.line.bot_prompt = "normal"
