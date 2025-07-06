@@ -230,7 +230,6 @@ Rails.application.config.sorcery.configure do |config|
   line.secret = ENV.fetch("LINE_CHANNEL_SECRET")
   line.callback_url = ENV.fetch("LINE_CALLBACK_URL")
   line.scope = "profile"
-  line.display = "popup"
   line.user_info_mapping = { uid: "userId", name: "displayName" }
   # config.line.bot_prompt = "normal"
 
