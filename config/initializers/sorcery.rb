@@ -226,11 +226,11 @@ Rails.application.config.sorcery.configure do |config|
 
   # Line プロバイダ設定
   line = config.send(:line)
-  line.key               = ENV.fetch("LINE_CHANNEL_ID")
-  line.secret            = ENV.fetch("LINE_CHANNEL_SECRET")
-  line.callback_url      = ENV.fetch("LINE_CALLBACK_URL")
-  line.scope             = "profile"
-  line.display           = "popup"
+  line.key = ENV.fetch("LINE_CHANNEL_ID")
+  line.secret = ENV.fetch("LINE_CHANNEL_SECRET")
+  line.callback_url = ENV.fetch("LINE_CALLBACK_URL")
+  line.scope = "profile"
+  line.display = "popup"
   line.user_info_mapping = { uid: "userId", name: "displayName" }
   # config.line.bot_prompt = "normal"
 
