@@ -26,5 +26,4 @@ namespace :reminder do  # rake reminder:scheduleで呼び出せる
       puts "📩 通知予約：#{user.name} さんに #{reminder_time} に送信予定 → #{message}"
     end
   end
-
 end

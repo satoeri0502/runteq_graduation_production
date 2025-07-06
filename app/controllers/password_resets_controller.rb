@@ -11,8 +11,8 @@ class PasswordResetsController < ApplicationController
     redirect_to complete_password_resets_path
   end
 
-  #メール送信完了メッセージ画面
-  def send_complete; end;
+  # メール送信完了メッセージ画面
+  def send_complete; end
 
   # 新パスワード入力画面
   def edit
@@ -34,9 +34,9 @@ class PasswordResetsController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.change_password(params[:user][:password])
       redirect_to login_path
-      flash[:success]= 'パスワードがリセットされました'
+      flash[:success]= "パスワードがリセットされました"
     else
-      render action: 'edit'
+      render action: "edit"
     end
   end
 end

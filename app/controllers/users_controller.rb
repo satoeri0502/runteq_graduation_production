@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   # メール登録推奨画面
-  def email_prompt; end;
+  def email_prompt; end
 
   # メール登録画面
   def email_register
