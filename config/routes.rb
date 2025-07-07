@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post "login", to: "user_sessions#create"
 
   # ログアウト用ルート
-  delete "logout", to: "user_sessions#destroy"
+  delete "logout", to: "user_sessions#destroy", as: :logout
 
   # 新規登録用ルート
   resources :users do

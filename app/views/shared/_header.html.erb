@@ -1,6 +1,10 @@
 <div class="h-1/5 w-full bg-cyan-200 p-4 flex items-center justify-between">
   <%= link_to image_tag("top_logo.png", class: "h-11"), medicines_path %>
   <%# ハンバーガーメニューは準備中 %>
-  <%= link_to "ログアウト", logout_path,
-          class: "w-full py-2 bg-Green-600 text-white font-bold rounded-sm block text-center shadow hover:bg-gray-100 active:bg-gray-200" %>
+  <% if current_user.present? %>
+    <%= link_to "ログアウト", logout_path,
+      method: :delete,
+      data: { confirm: "ログアウトしますか？" },
+      class: "p-2 bg-green-500 text-white font-bold rounded-md text-center shadow hover:bg-green-700 active:bg-green-300 text-black" %>
+  <% end %>
 </div>
