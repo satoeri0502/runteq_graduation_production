@@ -1,4 +1,12 @@
 require "sidekiq/cron/job"
+require "sidekiq/web"
+
+# 本番環境のみBasic認証をかける
+if Rails.env.production?
+  Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
+    [ user, password ] == [ ENV["SIDEKIQ_USER"], ENV["SIDEKIQ_PASSWORD"] ]
+  end
+end
 
 # RedisのURLを環境変数から取得（なければローカル用）
 redis_url = ENV.fetch("REDIS_URL") { "redis://localhost:6379/0" }
