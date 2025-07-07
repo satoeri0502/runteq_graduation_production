@@ -18,12 +18,22 @@ namespace :reminder do  # rake reminder:scheduleで呼び出せる
         飲み忘れにご注意ください！
       MSG
 
-      # app/jobs/reminder_notification_job.rb
-      # 上記クラスを実行する時間、送信対象、送信内容をRedisに保存
-      # perform_later：ジョブをキューに入れる（後で実行）
-      ReminderNotificationJob.set(wait_until: reminder_time).perform_later(user.id, message)
+      # ✅ 重複スケジュールを避ける：同じ内容＆時間のジョブがすでにあるかチェック
+      job_found = Sidekiq::ScheduledSet.new.any? do |job|
+        job.klass == "ReminderNotificationJob" &&
+          job.args == [ user.id, message ] &&
+          job.at.to_i == reminder_time.to_i
+      end
 
-      puts "📩 通知予約：#{user.name} さんに #{reminder_time} に送信予定 → #{message}"
+      unless job_found
+        # app/jobs/reminder_notification_job.rb
+        # 上記クラスを実行する時間、送信対象、送信内容をRedisに保存
+        # perform_later：ジョブをキューに入れる（後で実行）
+        ReminderNotificationJob.set(wait_until: reminder_time).perform_later(user.id, message)
+        puts "📩 通知予約：#{user.name} さんに #{reminder_time} に送信予定 → #{message}"
+      else
+        puts "⚠️ スキップ：#{user.name} さんの #{reminder_time} の通知は既にスケジュールされています"
+      end
     end
   end
 end

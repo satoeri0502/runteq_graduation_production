@@ -6,9 +6,11 @@ class ReminderScheduleJob < ApplicationJob
     Rake.application.init
     Rake.application.load_rakefile
 
+    puts "📅 ReminderScheduleJob started at #{Time.current}"
+
     # lib/tasks/reminder.rakeの通知予約処理を実行
-    task = Rake::Task["reminder:schedule"]
-    task.reenable  # ← 毎回ちゃんと動くように
-    task.invoke
+    # 通知スケジュール登録のRakeタスクを呼び出し
+    Rake::Task["reminder:schedule"].reenable # <- 毎回実行できるように
+    Rake::Task["reminder:schedule"].invoke
   end
 end

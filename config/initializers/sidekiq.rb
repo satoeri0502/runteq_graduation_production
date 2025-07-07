@@ -9,7 +9,7 @@ Sidekiq.configure_server do |config|
   # Cronジョブはサーバー側でのみ設定
   Sidekiq::Cron::Job.load_from_hash!(
     reminder_schedule_job: {
-      cron: "0 18 * * *", # 毎朝3時に実行（日本時間）Renderは UTCで動いているので-9時間
+      cron: "0 * * * *", # 毎朝3時に実行（日本時間）Renderは UTCで動いているので-9時間
       class: "ReminderScheduleJob"
     }
   )

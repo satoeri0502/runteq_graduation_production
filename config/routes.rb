@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   get "login", to: "user_sessions#new"
   post "login", to: "user_sessions#create"
 
+  # ログアウト用ルート
+  delete "logout", to: "user_sessions#destroy"
+
   # 新規登録用ルート
   resources :users do
     collection do
