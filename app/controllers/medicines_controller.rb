@@ -14,6 +14,7 @@ class MedicinesController < ApplicationController
 
   def update
     if @medicine.update(medicine_params)
+      ReminderScheduler.call(user: current_user)
       redirect_to medicines_path, success: "おくすり情報を更新しました！"
     else
       # 入力エラーなら同じ画面へ戻してエラーメッセージを表示

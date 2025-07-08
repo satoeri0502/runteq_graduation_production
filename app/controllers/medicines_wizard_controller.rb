@@ -98,6 +98,7 @@ class MedicinesWizardController < ApplicationController
       # 最終ステップ：まとめて登録 → セッションクリア → 完了画面 or 一覧へ
       create_records_from(session[:wizard])
       session.delete(:wizard)
+      ReminderScheduler.call(user: current_user)
       redirect_to finish_wizard_path, success: "おくすりが登録されました！"
     else
       # 次のステップの URL にリダイレクト
