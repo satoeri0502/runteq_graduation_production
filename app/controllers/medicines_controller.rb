@@ -26,6 +26,15 @@ class MedicinesController < ApplicationController
 
   def destroy
     medicine = current_user.medicines.find(params[:id])
+
+    # 削除対象のおくすりに関連する通知ジョブを Sidekiq から削除
+    Sidekiq::ScheduledSet.new.each do |job|
+      if job.klass == "ReminderNotificationJob" &&
+          job.args[1].to_i == medicine.id  # 引数の2番目が medicine_id
+        job.delete
+      end
+    end
+
     medicine.destroy!
     redirect_to medicines_path, success: "おくすりを1件削除しました！"
   end

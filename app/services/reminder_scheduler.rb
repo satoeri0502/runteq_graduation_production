@@ -23,7 +23,7 @@ class ReminderScheduler
 
         job_found = Sidekiq::ScheduledSet.new.any? do |job|
           job.klass == "ReminderNotificationJob" &&
-            job.args == job_key &&
+            job.args.map(&:to_s) == job_key.map(&:to_s) &&
             job.at.to_i == reminder_time.to_i
         end
 
