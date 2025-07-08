@@ -4,8 +4,13 @@ class ReminderScheduler
     deleted = 0
     Sidekiq::ScheduledSet.new.each do |job|
       next unless job.klass == "ReminderNotificationJob"
-      next unless job.args[0].to_i == user.id
-      next unless job.args[1].to_i == medicine.id
+      job_user_id     = job.args[0].to_i
+      job_medicine_id = job.args[1].to_i
+
+      puts "👀 チェック中ジョブ → user_id:#{job_user_id}, medicine_id:#{job_medicine_id}, 全args:#{job.args.inspect}"
+
+      next unless job_user_id == user.id
+      next unless job_medicine_id == medicine.id
 
       job.delete
       deleted += 1
