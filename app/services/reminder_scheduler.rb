@@ -1,14 +1,18 @@
 class ReminderScheduler
   # 1つの薬に対するジョブ削除
   def self.delete_jobs_for(user:, medicine:)
+    deleted = 0
     Sidekiq::ScheduledSet.new.each do |job|
-      if job.klass == "ReminderNotificationJob" &&
-          job.args[0].to_i == user.id &&
-          job.args[1].to_i == medicine.id
-        job.delete
-        Rails.logger.info "🗑 削除：#{user.name} の #{medicine.name} 通知ジョブ → #{job.args.inspect}"
-      end
+      next unless job.klass == "ReminderNotificationJob"
+      next unless job.args[0].to_i == user.id
+      next unless job.args[1].to_i == medicine.id
+
+      job.delete
+      deleted += 1
+      Rails.logger.info "🗑 通知ジョブ削除 → #{job.args.inspect}"
     end
+
+    puts "✅ #{medicine.name} の通知ジョブを #{deleted} 件削除しました"
   end
 
   # 特定ユーザーの全お薬ジョブを再登録
