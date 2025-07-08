@@ -34,11 +34,6 @@ class MedicinesController < ApplicationController
     redirect_to medicines_path, success: "おくすりを1件削除しました！"
   end
 
-
-    medicine.destroy!
-    redirect_to medicines_path, success: "おくすりを1件削除しました！"
-  end
-
   private
 
   def set_medicine
