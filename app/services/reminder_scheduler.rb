@@ -29,14 +29,12 @@ class ReminderScheduler
   def self.call(user:)
     today = Date.current
 
+    return unless user.line_user_id.present?
+
     user.medicines.includes(:dosetimings).each do |medicine|
-      # 古いジョブを削除
       delete_jobs_for(user: user, medicine: medicine)
 
       medicine.dosetimings.each do |dose|
-        next unless user.line_user_id.present?
-
-        # 通知時刻（過去なら翌日に）
         reminder_time = dose.reminder_time.change(year: today.year, month: today.month, day: today.day)
         reminder_time += 1.day if reminder_time < Time.current
 
