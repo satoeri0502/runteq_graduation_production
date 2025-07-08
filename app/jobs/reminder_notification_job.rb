@@ -10,7 +10,7 @@ class ReminderNotificationJob < ApplicationJob
     # もしLINE通知に必要なline_user_idがなかったらスキップ
     return unless user&.line_user_id && medicine
 
-    message = <<~MSG.squish
+    message = <<~MSG
       💊#{dose_time}：#{dose_timing} のご連絡💊
 
       【#{medicine.name}】を飲む時間です。

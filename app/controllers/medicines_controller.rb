@@ -27,11 +27,16 @@ class MedicinesController < ApplicationController
   def destroy
     medicine = current_user.medicines.find(params[:id])
 
-    # 削除対象のおくすりに関連する通知ジョブを Sidekiq から削除
+    # 先に medicine.id を覚えておく（念のため）
+    deleted_medicine_id = medicine.id
+
+    # 🔥 削除対象のおくすりに関連する通知ジョブを Sidekiq から削除
     Sidekiq::ScheduledSet.new.each do |job|
       if job.klass == "ReminderNotificationJob" &&
-          job.args[1].to_i == medicine.id  # 引数の2番目が medicine_id
+        job.args[0].to_i == current_user.id &&
+        job.args[1].to_i == deleted_medicine_id
         job.delete
+        Rails.logger.info "🗑 削除済みおくすりの通知ジョブを削除 → #{job.args.inspect}"
       end
     end
 
