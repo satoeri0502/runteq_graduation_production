@@ -14,6 +14,8 @@ class MedicinesController < ApplicationController
 
   def update
     if @medicine.update(medicine_params)
+
+      # スケジュール登録
       ReminderScheduler.call(user: current_user)
       redirect_to medicines_path, success: "おくすり情報を更新しました！"
     else
