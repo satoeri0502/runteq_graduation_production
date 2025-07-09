@@ -3,6 +3,6 @@ class ReminderScheduleJob < ApplicationJob
 
   def perform
     puts "📅 ReminderScheduleJob started at #{Time.current}"
-    ReminderScheduler.call
+    ReminderScheduler.call_all
   end
 end
