@@ -4,7 +4,13 @@
   <% if current_user.present? %>
     <div class="flex items-center space-x-4">
       <!-- LINE友だち追加ボタン -->
-      <div class="line-it-button" data-lang="ja" data-type="friend" data-env="REAL" data-lineId="@231hsshg" style="display: none;"></div>
+      <div class="line-it-button" 
+           data-lang="ja" 
+           data-type="friend" 
+           data-env="REAL" 
+           data-lineId="@231hsshg"
+           style="width: 140px; height: 40px;">
+      </div>
 
       <!-- ログアウトボタン -->
       <%= link_to "ログアウト", logout_path,
