@@ -1,11 +1,18 @@
 <div class="h-1/5 w-full bg-cyan-200 p-4 flex items-center justify-between">
   <%= link_to image_tag("top_logo.png", class: "h-11"), medicines_path %>
-  <div class="line-it-button" data-lang="ja" data-type="friend" data-env="REAL"   data-lineId="@231hsshg" style="display: none;"></div>
-  <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
-  <%# ハンバーガーメニューは準備中 %>
+
   <% if current_user.present? %>
-    <%= link_to "ログアウト", logout_path,
-      data: { turbo_method: :delete, confirm: "ログアウトしますか？" },
-      class: "p-2 bg-green-500 text-white font-bold rounded-md text-center shadow hover:bg-green-700 active:bg-green-300 text-black" %>
+    <div class="flex items-center space-x-4">
+      <!-- LINE友だち追加ボタン -->
+      <div class="line-it-button" data-lang="ja" data-type="friend" data-env="REAL" data-lineId="@231hsshg" style="display: none;"></div>
+
+      <!-- ログアウトボタン -->
+      <%= link_to "ログアウト", logout_path,
+          data: { turbo_method: :delete, confirm: "ログアウトしますか？" },
+          class: "p-2 bg-green-500 text-white font-bold rounded-md text-center shadow hover:bg-green-700 active:bg-green-300 text-black" %>
+    </div>
   <% end %>
 </div>
+
+<!-- LINEスクリプト -->
+<script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async defer></script>
